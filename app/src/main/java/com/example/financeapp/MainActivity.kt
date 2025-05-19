@@ -27,7 +27,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             MatuleTheme {
                 Column(modifier = Modifier.fillMaxSize().padding(top = 100.dp)) {
-                    TextFieldForPass("asdasd")
+                    TextFieldForEmail("asdasd")
+                    TextFieldForPass("123")
                 }
             }
         }

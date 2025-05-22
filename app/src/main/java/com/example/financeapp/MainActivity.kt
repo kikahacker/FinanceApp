@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.example.financeapp.ui.common.CommonButton
 import com.example.financeapp.ui.common.TextFieldForEmail
 import com.example.financeapp.ui.common.TextFieldForPass
+import com.example.financeapp.ui.screens.SplashScreen
 import com.example.financeapp.ui.theme.MatuleTheme
 
 class MainActivity : ComponentActivity() {
@@ -26,10 +27,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MatuleTheme {
-                Column(modifier = Modifier.fillMaxSize().padding(top = 100.dp)) {
-                    TextFieldForEmail("asdasd")
-                    TextFieldForPass("123")
-                }
+                SplashScreen()
             }
         }
     }

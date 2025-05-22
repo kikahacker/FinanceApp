@@ -23,7 +23,7 @@ data class MatuleColors(
     val accent: Color,
     val colorForGradient1: Color,
     val colorForGradient2: Color,
-    val dialogCircle: Color
+    val Circle: Color
 
 )
 
@@ -33,6 +33,7 @@ data class MatuleTextStyle(
     val headingExtraBold32: TextStyle,
     val headingBold30: TextStyle,
     val subTitleRegular16: TextStyle,
+    val subTitleRegular20: TextStyle,
     val bodyRegular16: TextStyle,
     val bodyRegular14: TextStyle,
     val bodyRegular12: TextStyle,
@@ -45,6 +46,7 @@ val LocalMatuleTypography = staticCompositionLocalOf {
         headingExtraBold32 = TextStyle.Default,
         headingBold30 = TextStyle.Default,
         subTitleRegular16 = TextStyle.Default,
+        subTitleRegular20 = TextStyle.Default,
         bodyRegular16 = TextStyle.Default,
         bodyRegular14 = TextStyle.Default,
         bodyRegular12 = TextStyle.Default,
@@ -62,7 +64,7 @@ val LocalMatuleColors = staticCompositionLocalOf {
         accent = Color.Unspecified,
         colorForGradient1 = Color.Unspecified,
         colorForGradient2 = Color.Unspecified,
-        dialogCircle = Color.Unspecified
+        Circle = Color.Unspecified
     )
 }
 
@@ -86,7 +88,7 @@ fun MatuleTheme( content: @Composable () -> Unit){
         accent = Color(0xFF48B2E7),
         colorForGradient1 = Color(0xFF48B2E7),
         colorForGradient2 = Color(0xFF0076B1),
-        dialogCircle = Color(0xFF48B2E7),
+        Circle = Color(0xFF5F9EA0),
 
         )
     val matuleTypography = MatuleTextStyle(
@@ -95,6 +97,7 @@ fun MatuleTheme( content: @Composable () -> Unit){
         headingBold30 = TextStyle(fontFamily = matuleFontFamily, fontWeight = FontWeight.Bold, fontSize = 30.sp),
         headingBold24 = TextStyle(fontFamily = matuleFontFamily, fontWeight = FontWeight.Bold, fontSize = 24.sp),
         subTitleRegular16 = TextStyle(fontFamily = matuleFontFamily, fontWeight = FontWeight.Normal, fontSize = 16.sp),
+        subTitleRegular20 = TextStyle(fontFamily = matuleFontFamily, fontWeight = FontWeight.Normal, fontSize = 20.sp),
         bodyRegular16 = TextStyle(fontFamily = matuleFontFamily, fontWeight = FontWeight.Normal, fontSize = 16.sp),
         bodyRegular14 = TextStyle(fontFamily = matuleFontFamily, fontWeight = FontWeight.Normal, fontSize = 14.sp),
         bodyRegular12 = TextStyle(fontFamily = matuleFontFamily, fontWeight = FontWeight.Normal, fontSize = 12.sp),

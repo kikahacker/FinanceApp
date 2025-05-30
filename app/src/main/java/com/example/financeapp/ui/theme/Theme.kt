@@ -1,9 +1,11 @@
 package com.example.financeapp.ui.theme
 import android.database.sqlite.SQLiteBindOrColumnIndexOutOfRangeException
+import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
@@ -23,7 +25,9 @@ data class MatuleColors(
     val accent: Color,
     val colorForGradient1: Color,
     val colorForGradient2: Color,
-    val Circle: Color
+    val Circle: Color,
+    val BackSlider1: Color,
+    val BackSlider2: Color,
 
 )
 
@@ -64,7 +68,9 @@ val LocalMatuleColors = staticCompositionLocalOf {
         accent = Color.Unspecified,
         colorForGradient1 = Color.Unspecified,
         colorForGradient2 = Color.Unspecified,
-        Circle = Color.Unspecified
+        Circle = Color.Unspecified,
+        BackSlider1 = Color.Unspecified,
+        BackSlider2 = Color.Unspecified
     )
 }
 
@@ -89,6 +95,9 @@ fun MatuleTheme( content: @Composable () -> Unit){
         colorForGradient1 = Color(0xFF48B2E7),
         colorForGradient2 = Color(0xFF0076B1),
         Circle = Color(0xFF5F9EA0),
+        BackSlider1 = Color(0xFF74B08E),
+        BackSlider2 = Color(0xFF74AC87)
+
 
         )
     val matuleTypography = MatuleTextStyle(

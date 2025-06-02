@@ -20,10 +20,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.datastore.core.DataStore
 import com.example.financeapp.R
+import com.example.financeapp.ui.data.local.DataStoreOnBoarding
 import com.example.financeapp.ui.theme.MatuleTheme
 
 @Preview
+
 @Composable
 fun SplashScreen(){
     Column(modifier = Modifier.fillMaxSize().background(Color(0xFF4169e1)), verticalArrangement = Arrangement.Center) {
@@ -42,7 +45,7 @@ fun SplashScreen(){
                     modifier = Modifier.size(150.dp)
                 )
             }
-            Text(text = "FNNCCTRL", style = MatuleTheme
+            Text(text = "SPENDLY", style = MatuleTheme
                 .typography
                 .headingBold32,
                 color = Color.White,

@@ -1,134 +1,111 @@
 package com.example.financeapp.ui.screens
 
 import android.annotation.SuppressLint
-import android.app.Activity
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalView
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.core.view.WindowCompat
-import com.example.financeapp.R
-import com.example.financeapp.ui.theme.MatuleTheme
+import com.example.financeapp.domain.models.Category
+import com.example.financeapp.ui.viewmodels.PeriodViewModel
 
 @SuppressLint("UnusedBoxWithConstraintsScope")
-@Preview
 @Composable
-fun HomePage() {
-    // Устанавливаем цвет системных баров
-    val view = LocalView.current
-    DisposableEffect(view) {
-        val window = (view.context as Activity).window
-        window.statusBarColor = 0xFF7AC793.toInt()
-        window.navigationBarColor = 0xFF7AC793.toInt()
+fun HomePage(viewModel: PeriodViewModel,
+             onAddExpenseClick: () -> Unit,
+             onCategoryClick: (Category) -> Unit
+) {
+    val uiState by viewModel.uiState
+    val pagerState = rememberPagerState()
 
-        // Для светлого текста в статус-баре (если нужен)
-        WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = false
-
-        onDispose {}
+    LaunchedEffect(pagerState.currentPage) {
+        viewModel.onPageChanged(pagerState.currentPage)
     }
 
-    Scaffold(
-        topBar = {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(130.dp)
-                    .background(color = Color(0xFF7AC793))
-                    .statusBarsPadding().padding(top = 10.dp, start = 10.dp) // Учитываем отступ под статус-бар
-            ) {
-                IconButton(onClick = {}, modifier = Modifier.fillMaxHeight().width(40.dp)) {
-                    Icon(
-                        painter = painterResource(R.drawable.free_icon_sort_descending_8189398),
-                        contentDescription = null,
-                        modifier = Modifier.size(30.dp))
-                }
-                Column(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .width(150.dp)
-                        .padding(end = 20.dp, start = 20.dp, top = 15.dp)
-                ) {
-                    Text(
-                        text = "Spendly",
-                        fontFamily = FontFamily(Font(R.font.aguafina_script)),
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 21.sp,
-                    )
-                }
-                IconButton(
-                    onClick = {},
-                    modifier = Modifier
-                        .padding(horizontal = 18.dp)
-                        .fillMaxHeight()
-                        .width(40.dp)
-                ) {
-                    Icon(
-                        painter = painterResource(R.drawable.loupe),
-                        contentDescription = null,
-                        modifier = Modifier.size(25.dp)
-                    )
-                }
-                IconButton(
-                    onClick = {},
-                    modifier = Modifier
-                        .padding(horizontal = 18.dp)
-                        .fillMaxHeight()
-                        .width(40.dp)
-                ) {
-                    Icon(
-                        painter = painterResource(R.drawable.exchange),
-                        contentDescription = null,
-                        modifier = Modifier.size(25.dp)
-                    )
-                }
-                IconButton(
-                    onClick = {},
-                    modifier = Modifier
-                        .padding(horizontal = 18.dp)
-                        .fillMaxHeight()
-                        .width(40.dp)
-                ) {
-                    Icon(
-                        painter = painterResource(R.drawable.dots),
-                        contentDescription = null,
-                        modifier = Modifier.size(25.dp)
-                    )
-                }
-            }
-        },
-        content = { padding ->
-
+    Column(modifier = Modifier.fillMaxSize()) {
+        // Переключатель периодов
+        HorizontalPager(
+            state = pagerState,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(48.dp)
+        ) { page ->
+            val type = PeriodType.values()[page]
+            PeriodTab(
+                type = type,
+                isSelected = uiState.type == type,
+                onClick = { /* Можно добавить обработчик */ }
+            )
         }
 
-    )
+        // Индикатор страниц
+        HorizontalPagerIndicator(
+            pagerState = pagerState,
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .padding(8.dp)
+        )
+
+        // Основной контент
+        if (uiState.isLoading) {
+            CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
+        } else {
+            PeriodContent(
+                state = uiState,
+                onAddExpenseClick = onAddExpenseClick,
+                onCategoryClick = onCategoryClick
+            )
+        }
+    }
+}
+
+@Composable
+private fun PeriodContent(
+    state: PeriodUiState,
+    onAddExpenseClick: () -> Unit,
+    onCategoryClick: (CategoryModel) -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    ) {
+        // Заголовок с датой
+        Text(
+            text = state.title,
+            style = MaterialTheme.typography.h6,
+            modifier = Modifier.padding(bottom = 16.dp)
+        )
+
+        // Баланс
+        BalanceCard(balance = state.balance)
+
+        // Доходы/расходы
+        IncomeExpenseRow(income = state.income, expense = state.expense)
+
+        // Круговые диаграммы категорий
+        CategoryPieChart(
+            categories = state.categories,
+            onCategoryClick = onCategoryClick
+        )
+
+        // Кнопка добавления
+        FloatingActionButton(
+            onClick = onAddExpenseClick,
+            modifier = Modifier
+                .align(Alignment.End)
+                .padding(16.dp)
+        ) {
+            Icon(Icons.Default.Add, contentDescription = "Добавить")
+        }
+    }
 }
 

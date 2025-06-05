@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.financeapp"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -41,6 +41,8 @@ android {
 }
 
 dependencies {
+    implementation ("androidx.compose.foundation:foundation:1.5.0")
+    implementation ("com.google.accompanist:accompanist-pager:0.30.1")
     implementation ("javax.inject:javax.inject:1")
     implementation ("androidx.datastore:datastore-preferences:1.0.0")
     implementation ("io.insert-koin:koin-androidx-compose:4.1.0-Beta5")

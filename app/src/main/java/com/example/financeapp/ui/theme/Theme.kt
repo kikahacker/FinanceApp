@@ -42,6 +42,7 @@ data class MatuleTextStyle(
     val bodyRegular14: TextStyle,
     val bodyRegular12: TextStyle,
     val headingBold24: TextStyle,
+    val nameApp: TextStyle,
 )
 
 val LocalMatuleTypography = staticCompositionLocalOf {
@@ -54,7 +55,8 @@ val LocalMatuleTypography = staticCompositionLocalOf {
         bodyRegular16 = TextStyle.Default,
         bodyRegular14 = TextStyle.Default,
         bodyRegular12 = TextStyle.Default,
-        headingBold24 = TextStyle(fontFamily = matuleFontFamily, fontWeight = FontWeight.Bold, fontSize = 32.sp)
+        nameApp = TextStyle.Default,
+        headingBold24 = TextStyle(fontFamily = matuleFontFamily, fontWeight = FontWeight.Bold, fontSize = 32.sp),
     )
 }
 
@@ -81,6 +83,8 @@ val matuleFontFamily = FontFamily(
     Font(R.font.roboto_serif_medium, FontWeight.Medium),
     Font(R.font.roboto_serif_extrabold, FontWeight.ExtraBold),
     Font(R.font.roboto_serif_semibold, FontWeight.SemiBold),
+    Font(R.font.aguafina_script, FontWeight.Bold)
+
 )
 
 @Composable
@@ -94,7 +98,7 @@ fun MatuleTheme( content: @Composable () -> Unit){
         accent = Color(0xFF48B2E7),
         colorForGradient1 = Color(0xFF48B2E7),
         colorForGradient2 = Color(0xFF0076B1),
-        Circle = Color(0xFF5F9EA0),
+        Circle = Color(0xFF90EE90),
         BackSlider1 = Color(0xFF74B08E),
         BackSlider2 = Color(0xFF74AC87)
 
@@ -110,6 +114,7 @@ fun MatuleTheme( content: @Composable () -> Unit){
         bodyRegular16 = TextStyle(fontFamily = matuleFontFamily, fontWeight = FontWeight.Normal, fontSize = 16.sp),
         bodyRegular14 = TextStyle(fontFamily = matuleFontFamily, fontWeight = FontWeight.Normal, fontSize = 14.sp),
         bodyRegular12 = TextStyle(fontFamily = matuleFontFamily, fontWeight = FontWeight.Normal, fontSize = 12.sp),
+        nameApp = TextStyle(fontFamily = matuleFontFamily, fontWeight = FontWeight.Bold, fontSize = 14.sp)
     )
     CompositionLocalProvider(
         LocalMatuleColors provides matuleColors,

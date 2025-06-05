@@ -22,7 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.datastore.core.DataStore
 import com.example.financeapp.R
-import com.example.financeapp.ui.data.local.DataStoreOnBoarding
+import com.example.financeapp.data.local.DataStoreOnBoarding
 import com.example.financeapp.ui.theme.MatuleTheme
 
 @Preview

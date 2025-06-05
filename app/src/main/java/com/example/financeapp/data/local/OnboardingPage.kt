@@ -1,4 +1,4 @@
-package com.example.financeapp.ui.data.local
+package com.example.financeapp.data.local
 
 import androidx.compose.ui.unit.Dp
 

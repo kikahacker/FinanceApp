@@ -10,5 +10,7 @@ data class Transaction(
     val category: Category,
     val type: TransactionType
 ) {
+
+
     enum class TransactionType { INCOME, EXPENSE }
 }

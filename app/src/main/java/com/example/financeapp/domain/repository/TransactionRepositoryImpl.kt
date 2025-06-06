@@ -5,6 +5,7 @@ import com.example.financeapp.data.database.DAO.TransactionDao
 import com.example.financeapp.data.database.mappers.CategoryMapper
 import com.example.financeapp.data.database.mappers.TransactionMapper
 import com.example.financeapp.domain.models.Transaction
+import java.time.LocalDate
 import javax.inject.Inject
 
 
@@ -12,6 +13,13 @@ class TransactionRepositoryImpl @Inject constructor(
     private val transactionDao: TransactionDao,
     private val categoryDao: CategoryDao
 ) : TransactionRepository {
+    override suspend fun getByDate(date: LocalDate): List<Transaction> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun insertTransaction(transaction: Transaction) {
+        TODO("Not yet implemented")
+    }
 
     override suspend fun getAllTransactions(): List<Transaction> {
         return transactionDao.getAll().mapNotNull { entity ->

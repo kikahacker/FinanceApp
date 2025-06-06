@@ -27,7 +27,7 @@ class TransactionViewModel(
 
     fun loadTransactions() {
         viewModelScope.launch {
-            transactionRepository.getAllTransactions()
+            transactionRepository.getAllTransactions().asFlow()
                 .catch { e ->
                     _uiState.value = TransactionUiState.Error(e.message ?: "Failed to load transactions")
                 }
@@ -59,7 +59,7 @@ class TransactionViewModel(
 
     fun filterByCategory(categoryId: Long) {
         viewModelScope.launch {
-            transactionRepository.getTransactionsByCategory(categoryId)
+            transactionRepository.getTransactionsByCategory(categoryId).asFlow()
                 .collect { transactions ->
                     _uiState.value = TransactionUiState.Success(transactions)
                 }
@@ -70,6 +70,6 @@ class TransactionViewModel(
 // Состояния UI для Transaction
 sealed class TransactionUiState {
     object Loading : TransactionUiState()
-    data class Success(val transactions: List<Transaction>) : TransactionUiState()
+    data class Success(val transactions: Transaction) : TransactionUiState()
     data class Error(val message: String) : TransactionUiState()
 }
